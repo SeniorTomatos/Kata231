@@ -37,7 +37,6 @@ public class DataConfig {
     }
 
     @Bean
-//    @Qualifier(value = "entityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());

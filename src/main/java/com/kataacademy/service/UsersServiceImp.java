@@ -9,13 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UsersServiceImp implements UserService {
 
     private final UsersDao usersDao;
 
 
+    @Transactional
     @Override
     public void addUser(User user) {
         usersDao.addUser(user);
@@ -32,11 +33,13 @@ public class UsersServiceImp implements UserService {
         return usersDao.getUserById(id);
     }
 
+    @Transactional
     @Override
     public void deleteUser(long id) {
         usersDao.deleteUser(id);
     }
 
+    @Transactional
     @Override
     public void editUser(User user) {
         usersDao.editUser(user);

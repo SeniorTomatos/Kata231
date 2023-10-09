@@ -18,29 +18,23 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/")
-    public String users(Model model) {
+    public String showAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
 
-
-    @GetMapping("/user")
-    public String getUser(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "user";
-    }
-
     @GetMapping("/add")
-    public String addUser(User user) {
+    public String createNewUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "create";
     }
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute("user") User user) {
+    @PostMapping("/saveNewUser")
+    public String saveNewUser(@ModelAttribute("user") User user) {
         userService.addUser(user);
         return "redirect:/";
     }
-
 
     @GetMapping("/delete")
     public String deleteUserById(@RequestParam("id") Long id) {
@@ -48,19 +42,16 @@ public class UserController {
         return "redirect:/";
     }
 
-
     @GetMapping("/edit/{id}")
-    public String editUser(Model model, @PathVariable("id") Long id) {
+    public String updateUser(Model model, @PathVariable("id") Long id) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "edit";
     }
 
-    @PostMapping("/edit")
-    public String edit(@ModelAttribute("user") User user) {
+    @PostMapping("/saveUpdatedUser")
+    public String saveUpdatedUser(@ModelAttribute("user") User user) {
         userService.editUser(user);
         return "redirect:/";
     }
-
-
 }
